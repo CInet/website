@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Index of <%= $reqpath %></title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body { flex-flow: column }
+    table { width:100%; border-collapse: collapse }
+    tr:nth-child(odd) { background-color: Lightblue }
+    td, th { padding: 0 5px 0 5px }
+    td { font-family: monospace; padding: 2px }
+    .name { text-align: left }
+    .size { text-align: right }
+    .type, .mtime { width: 15em; text-align: center }
+  </style>
+</head>
+<body>
+<h1>Index of <%= $reqpath %></h1>
+<div><hr /></div>
+<table>
+  <tr>
+    <th class='name'>Name</th>
+    <th class='size'>Size</th>
+    <th class='type'>Type</th>
+    <th class='mtime'>Last Modified</th>
+  </tr>
+  % use Number::Bytes::Human qw(format_bytes);
+  % for my $file (@$files) {
+  <tr>
+    <td class='name'><a href='<%= $file->{name} %>'><%== $file->{label} %></a></td>
+    <td class='size'><%= $file->{size} && format_bytes($file->{size}, bs => 1024, si => 1) %></td>
+    <td class='type'><%= $file->{type} %></td>
+    <td class='mtime'><%= $file->{mtime} %></td></tr>
+  % }
+</table>
+<div><hr /></div>
+</body>
+</html>

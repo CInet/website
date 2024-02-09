@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Conditional Independence Net</title>
+  <link rel="icon" type="image/png" href="/CI.png" />
+  <link rel="stylesheet" href="/style.css">
+
+  <script crossorigin="anonymous" integrity="sha512-BLTLvBrdIq0KLzJH2C9GpxL6KmCqX5cofqkYxUZPp8J2beb7ABAXPpL7aIbtSdtqLWLIgAyFFgePj1p/sq7lRw==" src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.2.0/marked.min.js"></script>
+
+  <link rel="stylesheet" crossorigin="anonymous" integrity="sha512-mb7hVnqouaHmHLJYLhdY+kUld4843IHJuRbVbhLXD41EJreUz0AeYU9t0XhwDFtnRVRvnLkbT/Xbjl1sajvpFQ==" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/atelier-cave-light.min.css" />
+  <script crossorigin="anonymous" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" crossorigin="anonymous" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <script crossorigin="anonymous" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script crossorigin="anonymous" integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <header>
+    <a href="/"><img src="/CI.png" /></a>
+    <em>Conditional Independence Net</em>
+  </header>
+  <aside><nav>
+    <ul>
+      <li>Tutorials</li>
+        <ul>
+          <li><a href="/tut/install">Installation of CInet tools</a></li>
+          <li><a href="/tut/axioms">Axioms and CI inference</a></li>
+        </ul>
+      <li>Data sets from specific papers</li>
+        <ul>
+          <!--
+          <li><a href="/data/geometry-of-gaussoids"><s>The geometry of gaussoids</s></a></li>
+          <li><a href="/data/construction-methods"><s>Construction methods for gaussoids</s></a></li>
+          <li><a href="/data/double-markovian"><s>The geometry of Gaussian double Markovian distributions</s></a></li>
+          <li><a href="/data/selfadhe-gaussian"><s>Selfadhesivity in Gaussian conditional independence structures</s></a></li>
+           -->
+          <li><a href="/data/selfadhe-lattices">Selfadhesivity in lattices of abstract conditional independence models</a></li>
+        </ul>
+      <li>CInet tools documentation</li>
+        <ul>
+          <li><a href="/doc/CInet::Base"><code>Base</code> — Base data structures and algorithms</a></li>
+          <li><a href="/doc/CInet::ManySAT"><code>ManySAT</code> — Bundle of SAT solvers</a></li>
+          <li><a href="/doc/CInet::Propositional"><code>Propositional</code> — SAT solvers and axioms</a></li>
+          <li><a href="/doc/CInet::Polyhedral"><code>Polyhedral</code> — Imsets and polymatroids</a></li>
+          <li><a href="/doc/CInet::Adhesive"><code>Adhesive</code> — Structural selfadhesivity</a></li>
+        </ul>
+      <li>About</li>
+        <ul>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="https://github.com/CInet/website">Source code</a>
+        </ul>
+    </ul></nav>
+  </aside>
+  <main>
+    <p><em>This website uses Javascript to render markdown documents in your browser,
+    apply syntax highlighting to code fragments and render $\LaTeX$ formulas.
+    Below is the markdown source code of this page. You can either read that or
+    enable Javascript to have it rendered to HTML.</em></p>
+    <pre><%= Mojo::Util::trim($markdown) %></pre>
+  </main>
+  <aside>
+    <!-- Right margin -->
+  </aside>
+  <footer>
+    <!-- GDPR etc. -->
+  </footer>
+  <script>
+    var content = document.getElementsByTagName('main')[0];
+    content.innerHTML = marked.parse(
+      content.getElementsByTagName('pre')[0].innerText
+    );
+    hljs.highlightAll();
+    renderMathInElement(content, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true  },
+        { left: '$',  right: '$',  display: false }
+      ],
+      macros: {
+        '\\CIS': '⟦#1⟧'
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+main {
+  flex: 3 1 0%;
+  text-align: justify;
+}
+
+header, nav, footer {
+  flex: 1 100%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  border-bottom: 2px solid rgba(0,150,250,128);
+  padding: 0 1em;
+}
+
+header img {
+  height: 4vh;
+}
+
+header em {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 4vh;
+  flex-grow: 1;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  font-size: small;
+  color: gray;
+}
+
+/* Navigation sidebar */
+
+aside {
+  flex: 1 1 0%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 0em;
+}
+
+nav ul ul {
+  margin-left: 1.5em;
+}
+
+nav > ul > li {
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid lightgray;
+}
+
+nav > ul > ul > li {
+  list-style-type: square;
+  padding: 3px;
+}
+
+/* Content */
+
+a {
+  text-decoration: none;
+  color: rgb(0,100,200);
+}
+
+code.hljs {
+  margin-left: 2em;
+  background-color: #f0f0f0;
+}
