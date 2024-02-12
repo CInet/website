@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="/style.css">
 
   <script crossorigin="anonymous" integrity="sha512-BLTLvBrdIq0KLzJH2C9GpxL6KmCqX5cofqkYxUZPp8J2beb7ABAXPpL7aIbtSdtqLWLIgAyFFgePj1p/sq7lRw==" src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.2.0/marked.min.js"></script>
+  <script crossorigin="anonymous" integrity="sha512-HeCMKzFP9Gy6UEre5znQtVJ7avwa8VLGqzuINuq0BDPkwfF45DGpMyP5Gs8McInRJ02n3mTd9XoAw/AheXrQQA==" src="https://cdnjs.cloudflare.com/ajax/libs/marked-smartypants/1.1.6/index.umd.min.js"></script>
 
   <link rel="stylesheet" crossorigin="anonymous" integrity="sha512-mb7hVnqouaHmHLJYLhdY+kUld4843IHJuRbVbhLXD41EJreUz0AeYU9t0XhwDFtnRVRvnLkbT/Xbjl1sajvpFQ==" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/atelier-cave-light.min.css" />
   <script crossorigin="anonymous" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script crossorigin="anonymous" integrity="sha512-XIsEPLwwBpDOmdLeR+Pv3Eppi6BDY40JfQ4M9bUfhGOPdOAPv0lL7cEor6cPxwT2+Ttbp2M6iJHrDkx4ako1lA==" src="https://cdnjs.cloudflare.com/ajax/libs/marked-highlight/2.1.1/index.umd.min.js"></script>
 
   <link rel="stylesheet" crossorigin="anonymous" integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
   <script crossorigin="anonymous" integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA==" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
@@ -25,7 +27,7 @@
       <li>Tutorials</li>
         <ul>
           <li><a href="/tut/install">Installation of CInet tools</a></li>
-          <li><a href="/tut/axioms">Axioms and CI inference</a></li>
+          <li><a href="/tut/axioms">Axioms and CI implication</a></li>
         </ul>
       <li>Data sets from specific papers</li>
         <ul>
@@ -66,11 +68,19 @@
     <!-- GDPR etc. -->
   </footer>
   <script>
+    marked.use(markedSmartypants.markedSmartypants());
+    marked.use(markedHighlight.markedHighlight({
+      langPrefix: 'hljs language-',
+      highlight(code, lang, info) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      }
+    }));
+
     var content = document.getElementsByTagName('main')[0];
     content.innerHTML = marked.parse(
       content.getElementsByTagName('pre')[0].innerText
     );
-    hljs.highlightAll();
     renderMathInElement(content, {
       delimiters: [
         { left: '$$', right: '$$', display: true  },
