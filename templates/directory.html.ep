@@ -17,6 +17,12 @@
 </head>
 <body>
 <h1>Index of <%= $reqpath %></h1>
+% use List::Util qw(any);
+% if (any { $_->{name} eq "index.md" } @$files) {
+<ul style="margin: 0">
+  <li><a href="./">View associated page of this directory instead.</a></li>
+</ul>
+% }
 <div><hr /></div>
 <table>
   <tr>
@@ -28,7 +34,7 @@
   % use Number::Bytes::Human qw(format_bytes);
   % for my $file (@$files) {
   <tr>
-    <td class='name'><a href='<%= $file->{name} %>'><%== $file->{label} %></a></td>
+  <td class='name'><a href='<%= $file->{name} . (($file->{type} || "directory") eq "directory" ? "?dir" : "") %>'><%== $file->{label} %></a></td>
     <td class='size'><%= $file->{size} && format_bytes($file->{size}, bs => 1024, si => 1) %></td>
     <td class='type'><%= $file->{type} %></td>
     <td class='mtime'><%= $file->{mtime} %></td></tr>

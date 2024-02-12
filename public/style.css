@@ -76,6 +76,15 @@ h1 { font-size: 1.5em }
 h2 { font-size: 1.17em }
 h3 { font-size: 1em }
 
+blockquote {
+  background-color: #f0f0f0;
+  padding: 1em;
+}
+
+blockquote > p {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
   color: rgb(0,100,200);
