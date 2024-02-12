@@ -88,7 +88,8 @@
       ],
       macros: {
         '\\CIS': '⟦#1⟧'
-      }
+      },
+      globalGroup: true
     });
   </script>
 </body>
