@@ -90,6 +90,21 @@ a {
   color: rgb(0,100,200);
 }
 
+dl.references {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+
+dl.references dt {
+  margin-left: 1em;
+  grid-column-start: 1;
+}
+
+dl.references dd {
+  margin-left: 1em;
+  grid-column-start: 2;
+}
+
 code.hljs {
   margin-left: 2em;
   background-color: #f0f0f0;
