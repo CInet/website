@@ -13,7 +13,7 @@ modules are automatically installed.
 - Alternatively, you can download our pre-built image
   [`cinet-all.tar.zst`](/images/cinet-all.tar.zst)
   <small style="line-break: anywhere">(SHA256: <code>309753424bad93eae166fa7cf5774bef4c8399f923d209b3f449d7a2d7a36360</code>)</small>
-  and load it into podman (or Docker) using `zstd -o cinet-all.tar.zst | podman load`.
+  and load it into podman (or Docker) using `zstdcat cinet-all.tar.zst | podman load`.
 
 After the image is installed on your computer, it is easy to start an
 interactive `CImake` shell for computations using `CInet::Tools`:
