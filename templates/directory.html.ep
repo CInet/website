@@ -32,10 +32,11 @@
     <th class='type'>Type</th>
     <th class='mtime'>Last Modified</th>
   </tr>
+  % use Mojo::Util qw(url_escape);
   % use Number::Bytes::Human qw(format_bytes);
   % for my $file (@$files) {
   <tr>
-  <td class='name'><a href='<%= $file->{name} . (($file->{type} || "directory") eq "directory" ? "?dir" : "") %>'><%== $file->{label} %></a></td>
+  <td class='name'><a href='<%= url_escape($file->{name}) . (($file->{type} || "directory") eq "directory" ? "?dir" : "") %>'><%== $file->{label} %></a></td>
     <td class='size'><%= $file->{size} && format_bytes($file->{size}, bs => 1024, si => 1) %></td>
     <td class='type'><%= $file->{type} %></td>
     <td class='mtime'><%= $file->{mtime} %></td></tr>
