@@ -19,7 +19,7 @@ After the image is installed on your computer, it is easy to start an
 interactive `CImake` shell for computations using `CInet::Tools`:
 
 ``` console
-$ podman run -it cinet/all CImake
+$ podman run -it cinet/all bash -lc CImake
 0> Gaussoids(4)->count
 679
 ```
