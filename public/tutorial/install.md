@@ -12,7 +12,7 @@ modules are automatically installed.
   see the instructions on [GitHub](https://github.com/CInet/container).
 - Alternatively, you can download our pre-built image
   [`cinet-all.tar.zst`](/images/cinet-all.tar.zst)
-  <small style="line-break: anywhere">(SHA256: <code>0b6bcc2950cf10bda8ee8fe6a7a87e80643e20975058eb98f34b5144cf57b22c</code>)</small>
+  <small style="line-break: anywhere">(for checksum, see [`sha256sums.txt`](/images/sha256sums.txt))</small>
   and load it into podman (or Docker) using `zstdcat cinet-all.tar.zst | podman load`.
 
 After the image is installed on your computer, it is easy to start an

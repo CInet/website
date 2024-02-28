@@ -26,8 +26,8 @@
     <ul>
       <li>Tutorials</li>
         <ul>
-          <li><a href="/tut/install">Installation of CInet tools</a></li>
-          <li><a href="/tut/axioms">Axioms and CI implication</a></li>
+          <li><a href="/tutorial/install">Installation of CInet tools</a></li>
+          <li><a href="/tutorial/axioms">Axioms and CI implication</a></li>
         </ul>
       <li>Data sets from specific papers</li>
         <ul>

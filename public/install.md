@@ -1,1 +1,1 @@
-tut/install.md
+tutorial/install.md
