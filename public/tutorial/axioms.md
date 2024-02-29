@@ -11,6 +11,8 @@ This presents you with a REPL (read-eval-print loop) for you to enter
 Perl code, similar to [`polymake`]. The REPL is just an interface to a
 standard Perl interpreter with all the CInet modules loaded.
 
+## Counting, enumerating and symmetry reduction
+
 Using `CInet::Tools`, axioms for CI structures can easily be written
 down. A *semigraphoid* is a set of conditional independence statements
 which is closed under the following boolean formula
@@ -126,9 +128,96 @@ strategy is more powerful against a given formula.
 32768 # time=00:02.30
 ```
 
+## Conditional independence implication
+
+Many basic families of CI structures can be defined axiomatically. In this
+case, SAT solvers can be used to compute CI statements which are implied by
+the axioms and additional CI assumptions. This is known as the conditional
+independence implication problem for the family under consideration.
+
+The families considered above are already provided by the
+[`CInet::Propositional::Families`](/doc/CInet::Propositional::Families) module
+which is automatically loaded by `CImake`. Families defined using the
+`propositional` mechanism have implication testing methods built into them.
+To check if $(12|3) \wedge (13|4) \wedge (14|2) \Rightarrow (12|)$ holds
+modulo the gaussoid axioms, simply execute:
+
+``` console
+12> my $p = CIR(4, [[1,2],[3]], [[1,3],[4]], [[1,4],[2]])
+*0****0**0**************
+13> Gaussoids->imply($p => [[1,2],[]])
+"" # time=00:00.01
+```
+
+The `CIR` function creates a [`CInet::Relation`](/doc/CInet::Relation)
+which is used to represent a CI structure. This structure holds the premises
+of the query. The `imply` method is then used to check if the statements in
+`$p` and the gaussoid axioms together imply `(12|)`. The result is a "no" in
+this case and is reached in just 10ms. Note that this is rule (20) in
+[[LM07]](#LM07). It is an implication which is valid for regular Gaussian
+distributions but which cannot be derived from the gaussoid axioms.
+
+On the other hand, let's consider an instance of the long semigraphoid
+derivation sequences in [[Mat02]](#Mat02). The function `L` defined in
+the file `longmatus.pl` quoted below constructs the sequence $\mathcal{L}_n$
+of CI structures defined in the paper. It is shown there that in order to
+derive the consequence $(12|3n)$ from $\mathcal{L}_n$ one needs to perform
+$2^{n-2}-1$ inference steps with the semigraphoid axioms. The SAT solver
+is keeping up well solving all tasks from $n = 4, \dots, 10$ in about 4
+seconds. (This includes the time required to construct $\mathcal{K}_n$
+from which $\mathcal{L}_n$ is extracted.)
+
+``` console
+14> do './longmatus.pl'
+15> map Semigraphoids->imply(L($_) => [[1,2],[3,$_]]), 4 .. 10
+(1, 1, 1, 1, 1, 1, 1) # time=00:04.25
+```
+
+``` perl
+# longmatus.pl
+
+use Modern::Perl 2018;
+use CInet::Tools;
+
+# Return the vertex set of 𝓚_n ordered according to the connected components.
+# The first two elements are the first isolated edge. Then every triple is a
+# connected component and the last two elements are an isolated edge again.
+#
+# The ordering of these vertices is crucial. It is from left to right just as
+# in Matúš's pictures. This allows us to easily recurse (the construction can
+# be seen as a kind of grey code) and to extract the substructure 𝓛_n below.
+sub K {
+    my $n = shift;
+    if ($n == 4) {
+        return (
+            [[1,2],[3]], [[1,3],[]], [[1,3],[2]], [[1,2],[]], [[2,4],[1]],
+            [[2,4],[]], [[1,2],[4]], [[1,3],[2,4]], [[1,3],[4]], [[1,2],[3,4]]
+        );
+    }
+    else {
+        my @prev = K($n-1);
+        return (
+            @prev, [[2,$n],[1,3,$n-1]], [[2,$n],[3,$n-1]],
+            reverse map { [$_->[0], [$_->[1]->@*, $n]] } @prev
+        );
+    }
+}
+
+sub L {
+    my $n = shift;
+    my @comps = K $n;
+    CIR($n,
+        $comps[0], $comps[1],
+        @comps[map { 4+3*($_-1) } 1 .. (@comps-4)/3]
+    )
+}
+```
+
 ## References
 
-* <a name="Stu05">[Stu05]</a> M. Studený: *Probabilistic conditional independence structures*. Springer, 2005.
+* <a name="Stu05">[Stu05]</a> M. Studený: *Probabilistic conditional independence structures*. Springer (2005).
+* <a name="LM07">[LM07]</a> R. Lněnička and F. Matúš: *On Gaussian conditional independence structures*. Kybernetika 43:3 (2007).
+* <a name="Mat02">[Mat02]</a> F. Matúš: *Lengths of semigraphoid inferences*. Ann. Math. Artif. Intell. 35 (2002).
 
 [`polymake`]: https://polymake.org/doku.php
 [`CInet::Propositional`]: /doc/CInet::Propositional
