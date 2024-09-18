@@ -20,8 +20,8 @@ interactive `CImake` shell for computations using `CInet::Tools`:
 
 ``` console
 $ podman run -it cinet/all bash -lc CImake
-0> Gaussoids(4)->count
-679
+CImake|001> Gaussoids(4)->count
+679 # time=00:00.02
 ```
 
 If you do not want to use Docker or podman, you can execute the steps in the
